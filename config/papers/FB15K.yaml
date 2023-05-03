@@ -1,0 +1,51 @@
+action:
+- train
+- valid
+- test
+cuda: 0
+data:
+  cpu: 10
+  data_folder: data/FB15k-betae
+  type: EFO-1
+estimator:
+  Wasserstein_comp:
+    distance: convolution
+    drop_n: 0.1
+    drop_p: 0.05
+    ent_dim: 320
+    ent_grid: 5
+    eta: 1.0
+    gamma: 37.5
+    hidden_dim: 1600
+    init_p: 0.5
+    max_iter: 10
+    num_lay: 1
+    proj_type: decomposition
+    reg: 0.1
+    relation_num_base: 90
+    scale: 150
+  embedding: Wasserstein_comp
+evaluate:
+  batch_size: 1000
+  formula_id_file: data/FB15k-237-betae/test_formulas.csv
+  interested_normal_forms:
+  - DNF
+  - DNF+MultiIU
+  - DeMorgan
+  print: true
+seed: 0
+train:
+  batch_size: 512
+  checkpoint_every: 60000
+  evaluate_every_steps: 60000
+  formula_id_file: data/FB15k-237-betae/train_formulas.csv
+  interested_normal_forms:
+  - DNF+MultiIU
+  learning_rate: 0.0005
+  log_every_steps: 100
+  negative_sample_size: 32
+  optimizer: AdamW
+  save_every_steps: 60000
+  steps: 360000
+  warm_up_steps: 180000
+  weight_decay: 0.01
